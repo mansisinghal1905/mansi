@@ -144,8 +144,6 @@ Route::middleware([AuthCheck::class])->group(function(){
         Route::post('change-projectassign-status', [ProjectAssignController::class, 'changeProjectAssignStatus'])->name('changeProjectAssignStatus');
         Route::post('admin/projects-assign/destory', [ProjectAssignController::class, 'projectassigndestory'])->name('projectassigndestory');
         
-
-
         Route::resource('taskassign', TaskAssignController::class);
         Route::get('createtask/{id?}', [TaskAssignController::class, 'createtask'])->name('createtask');
         Route::post('admin/taskassign/task-ajax', [TaskAssignController::class, 'taskassignAjax'])->name('taskassignAjax');
@@ -194,9 +192,7 @@ Route::middleware([AuthCheck::class])->group(function(){
 
         Route::get('notification', [NotificationController::class, 'fetchNotifications'])->name('fetchNotifications');
         Route::get('/notifications/count', [NotificationController::class, 'getNotificationCount'])->name('getNotificationCount');
-        
         Route::post('/notifications/mark-read/{id?}', [NotificationController::class, 'markAsRead'])->name('markAsRead');
-
         Route::post('/notifications/delete/{id?}', [NotificationController::class, 'deleteNotification'])->name('deleteNotification');
     
     });
