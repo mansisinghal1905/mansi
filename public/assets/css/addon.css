@@ -1,0 +1,426 @@
+/* Create A New Invoice css Start */
+
+section.client-fields-title .invoice-title {
+	padding: 15px 0px;
+}
+
+section.client-fields-title .invoice-title h3 {
+	font-size: 20px;
+	font-weight: 400;
+	text-transform: capitalize;
+	color: #455a64;
+}
+
+section.inv-client-detail .container {
+	background-color: #ebf2f5;
+	padding: 30px 30px 0px 30px;
+	margin-bottom: 15px;
+}
+
+section.inv-client-detail .invoice-client-fields .col-form-label {
+	font-size: 16px;
+	color: #9d9d9d;
+	font-weight: 600;
+}
+
+section.inv-client-detail .invoice-client-fields select {
+	width: 100%;
+	padding: 8px;
+	border: none;
+	display: block;
+	border-radius: 5px;
+	height: 40px;
+}
+
+section.inv-client-detail .invoice-client-fields .col-sm-12 {
+	padding-bottom: 30px;
+}
+
+section.inv-client-detail .invoice-client-fields select:focus-visible,
+section.inv-dat-and-category select:focus-visible,
+section.inv-dat-and-category input:focus,
+section.additionl-fields-sec .form-group.row select:focus-visible,
+section.additionl-fields-sec .form-group.row textarea:focus-visible {
+	outline: none;
+	box-shadow: 0 0 5px #bebebe;
+}
+
+section.inv-dat-and-category {
+	padding: 15px 0px;
+}
+
+section.inv-dat-and-category .col-form-label {
+	color: #67757c;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+section.inv-dat-and-category .col-sm-12 {
+	padding-bottom: 24px;
+}
+
+section.inv-dat-and-category input {
+	padding: 8px;
+	width: 100%;
+	outline: none;
+	box-shadow: none;
+	border: solid 1px #a3a3a3;
+	border-radius: 5px;
+	height: 40px;
+}
+
+section.inv-dat-and-category select {
+	width: 100%;
+	padding: 8px;
+	border-radius: 5px;
+	height: 40px;
+	border-color: #aeaeae;
+}
+
+
+section.additionl-fields-sec .spacer {
+	/* border-top: solid 1px #d4d4d4; */
+	padding: 25px 0px;
+}
+
+section.additionl-fields-sec span.title {
+	font-size: 18px;
+	color: #67757c;
+}
+
+.invoice-wapper .container .row {
+	align-items: center;
+}
+
+section.additionl-fields-sec .switch label {
+	font-weight: normal;
+	font-size: 13px;
+	cursor: pointer;
+	margin-bottom: 0px;
+	float: right;
+}
+
+section.additionl-fields-sec .switch label input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+section.additionl-fields-sec .switch label span.lever {
+	margin: 0 14px;
+	content: "";
+	display: inline-block;
+	position: relative;
+	width: 40px;
+	height: 19px;
+	background-color: #c7c7c7;
+	border-radius: 15px;
+	margin-right: 10px;
+	-webkit-transition: background 0.3s ease;
+	transition: background 0.3s ease;
+	vertical-align: middle;
+	margin: 0 16px;
+}
+
+section.additionl-fields-sec .switch label span.lever:after {
+	content: "";
+	position: absolute;
+	display: inline-block;
+	width: 17px;
+	height: 17px;
+	background-color: #F1F1F1;
+	border-radius: 21px;
+	/* box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4); */
+	left: 2px;
+	top: 1px;
+	-webkit-transition: left 0.3s ease, background 0.3s ease, -webkit-box-shadow 0.1s ease;
+	transition: left 0.3s ease, background 0.3s ease, -webkit-box-shadow 0.1s ease;
+	transition: left 0.3s ease, background 0.3s ease, box-shadow 0.1s ease;
+	transition: left 0.3s ease, background 0.3s ease, box-shadow 0.1s ease, -webkit-box-shadow 0.1s ease;
+}
+
+section.additionl-fields-sec .switch label input[type=checkbox]:checked+.lever:after {
+	left: 21px;
+}
+
+section.additionl-fields-sec .switch label input[type=checkbox]:checked+.lever.switch-col-light-blue {
+	background-color: #3454d1;
+}
+
+section.additionl-fields-sec .form-group.row {
+	padding: 8px 0px;
+}
+
+section.additionl-fields-sec .form-group label.col-12.text-left.control-label.col-form-label {
+	font-size: 16px;
+	color: #67757c;
+	padding-bottom: 7px;
+}
+
+section.additionl-fields-sec .form-group.row select {
+	width: 100%;
+	padding: 8px;
+	border-radius: 5px;
+	height: 40px;
+	border-color: #aeaeae;
+}
+
+section.additionl-fields-sec .form-group.row textarea {
+	width: 100%;
+	padding: 10px;
+	height: 100px;
+}
+
+.invo-footer-submit-sec button#invoice-submit {
+	padding: 7px 15px;
+	cursor: pointer;
+	position: relative;
+	font-size: 16px;
+	border-radius: 5px;
+	text-transform: capitalize;
+	background: #ff5c6c;
+	border: 1px solid #ff5c6c;
+	color: #fff;
+	transition: 0.5s;
+}
+
+.invo-footer-submit-sec button#invoice-submit:hover {
+	box-shadow: 0 0 8px #ff5c6c;
+	transition: 0.5s;
+}
+
+/* Create A New Invoice css end */
+
+
+/* invoice view css Start */
+
+.invoice-view-wapper {
+	margin: 15px;
+	max-width: 1100px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #fbfcfd;
+	padding-left: 45px;
+	padding-right: 45px;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	-webkit-box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2) !important;
+	box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2) !important;
+}
+
+.invoice-view-wapper section.view-invo-header {
+	padding-bottom: 15px;
+}
+
+.invoice-view-wapper section.view-invo-header .row {
+	border-bottom: solid 1px #e1e1e1;
+	padding-bottom: 15px;
+}
+
+.invoice-view-wapper section.view-invo-header h3 {
+	font-size: 24px;
+	color: #455a64;
+	text-transform: capitalize;
+}
+
+.invoice-view-wapper section.view-invo-header span {
+	font-size: 16px;
+	color: #000;
+}
+
+.invoice-view-wapper section.view-invo-header .invoice-status {
+	text-align: right;
+}
+
+.invoice-view-wapper section.view-invo-header .invoice-status span {
+	font-size: 26px;
+	color: #a4a2a2;
+}
+
+section.invoice-view-details {
+	padding-bottom: 15px;
+}
+
+section.invoice-view-details .details h3 {
+	font-size: 20px;
+	font-weight: 600;
+	color: #000;
+}
+
+section.invoice-view-details .details p {
+	font-size: 15px;
+	color: #868c98;
+}
+
+section.invoice-view-details .details span.lable {
+	font-size: 18px;
+	padding-bottom: 10px;
+	display: block;
+}
+
+section.invoice-view-details .invo-from h3 {
+	color: #20aee3;
+}
+
+section.invoice-date-and-payement {
+	background: #f6f6f6;
+	padding: 20px 0px;
+	margin-bottom: 12px;
+}
+
+section.invoice-date-and-payement .invoice-view-dates table tbody tr td {
+	font-size: 15px;
+	font-weight: normal;
+	color: #5b676d;
+}
+
+section.invoice-date-and-payement .invoice-view-dates table tbody tr td.x-lang {
+	font-weight: 600;
+	padding-right: 20px;
+}
+
+section.invoice-date-and-payement .invoice-view-dates.payments table {
+	float: right;
+}
+
+section.invoice-date-and-payement .invoice-view-dates.payments table tr td span.due {
+	background: #f8325c;
+	padding: 4px 5px;
+	border-radius: 100px;
+	color: #fff;
+}
+
+
+section.invoice-list .invoice-table {
+	background: transparent !important;
+}
+
+section.invoice-list .invoice-table tr th {
+	background: transparent;
+	font-size: 15px;
+	text-transform: capitalize;
+	font-weight: 600;
+}
+
+section.invoice-list .invoice-table tr td {
+	background: transparent;
+}
+
+section.invoice-list .invoice-table tbody tr:last-child {
+	border-color: transparent;
+}
+
+section.invoice-list .invoice-table tbody tr:hover {
+	background: #fefefe;
+	transition: 0.5s;
+}
+
+section.invoice-list .invoice-table tbody tr td {
+	font-weight: 400;
+	font-size: 15px;
+	color: #5b676d;
+}
+
+section.invoice-list {
+	padding: 20px 0px;
+}
+
+section.invo-attachments .attachments h3 {
+	font-size: 17px;
+	color: #455a64;
+}
+
+section.invo-attachments .total table.invoice-total-table {
+	float: right;
+}
+
+section.invo-attachments .total table.invoice-total-table tr td {
+	font-size: 15px;
+	font-weight: 600;
+	text-align: right;
+	padding-left: 25px;
+	color: #5b676d;
+}
+
+section.invo-attachments .total table.invoice-total-table tr td span {
+	font-weight: 400;
+}
+
+section.invo-attachments .total table.invoice-total-table tr td span.x-small {
+	font-size: 14px;
+}
+
+section.invo-attachments .total table.invoice-total-table tr td.billing-sums-total {
+	color: #ff0000;
+	font-size: 20px;
+}
+
+section.invoice-view-details .invo-to.details {
+	text-align: right;
+}
+
+
+section.invo-view-footer-msg h4 {
+	font-size: 18px;
+	color: #000;
+}
+
+section.invo-view-footer-msg p {
+	font-size: 15px;
+	color: #5b676d;
+}
+
+section.invo-attachments {
+	background: #f6f6f6;
+	padding: 20px 0px;
+	margin-bottom: 12px;
+}
+
+
+section.invoice-list .invoice-table tr .text-right {
+    text-align: right;
+}
+
+@media screen and (max-width: 768px) {
+	.container {
+		max-width: 100%;
+	}
+
+	.invoice-view-wapper {
+		padding: 20px 15px;
+		margin: 10px;
+	}
+
+	.invoice-view-wapper section.view-invo-header .invoice-status {
+		text-align: left;
+		padding-top: 10px;
+	}
+
+	section.invoice-view-details .invo-to.details {
+		text-align: left;
+	}
+
+	section.invoice-date-and-payement .invoice-view-dates.payments table {
+		float: left;
+		padding-top: 13px;
+		display: block;
+	}
+
+	section.invo-attachments .total table.invoice-total-table {
+		float: left;
+	}
+
+	section.invo-attachments .total table.invoice-total-table tr td {
+		text-align: left;
+		padding-left: 0px;
+		padding-right: 20px;
+	}
+
+	section.invo-view-footer-msg {
+		padding: 11px 0px;
+	}
+
+}
+
+
+/* invoice view css end */
