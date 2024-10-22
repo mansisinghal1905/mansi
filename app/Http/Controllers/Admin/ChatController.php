@@ -26,60 +26,49 @@ class ChatController extends Controller
     
     public function getuserlist(Request $request)
     {
-        // Get the list of users except the role with ID 1
-        if(Auth::user()->role==1){
-            $userlist = User::where('role', '<>', 1)->get();
-        }else{
-            $userlist = User::where('role', 1)->get();
+        try{
+            if(Auth::user()->role==1){
+                $userlist = User::where('role', '<>', 1)->get();
+            }else{
+                $userlist = User::where('role', 1)->get();
+            }
+            $loggedInUserId = auth()->user()->id;
+
+            $userDetails = [];
+
+            foreach ($userlist as $key => $value) {
+            
+                $chatrec = Chat::where('sender_id', $value->id)
+                                ->orderBy('id', "desc")
+                                ->first();
+
+                $value->unreadmessage = $chatrec ? $chatrec->message : '';
+                $value->is_read = $chatrec->is_read ?? 0;
+
+                $chatcount = Chat::where('is_read', '0')
+                                ->where('sender_id', $value->id)
+                                ->count();
+
+                $value->chatcount = $chatcount != 0 ? $chatcount : '';
+                $value->createdDate = $chatrec ? $chatrec->created_at->diffForHumans() : '';
+                $value->chat_status = $value->chat_status;
+                $userDetails[] = $value;
+            }
+
+            usort($userDetails, function ($a, $b) {
+                return $b->chatcount <=> $a->chatcount;
+            });
+
+            usort($userDetails, function ($a, $b) {
+                return strtotime($b->createdDate) <=> strtotime($a->createdDate);
+            });
+
+            $chats = Chat::with('user')->get();
+
+            return view('admin.chat.userlist', compact('chats', 'userDetails'));
+        }catch(Exception $e){
+            return redirect()->back();
         }
-        // dd($userlist);
-        // ID of the logged-in user
-        $loggedInUserId = auth()->user()->id;
-
-        // Initialize an array to store users with their chat details
-        $userDetails = [];
-
-        foreach ($userlist as $key => $value) {
-            // Fetch the latest chat message for the current user
-            $chatrec = Chat::where('sender_id', $value->id)
-                            ->orderBy('id', "desc")
-                            ->first();
-
-            // Set unread message and read status
-            $value->unreadmessage = $chatrec ? $chatrec->message : '';
-            $value->is_read = $chatrec->is_read ?? 0;
-
-            // Count the number of unread messages
-            $chatcount = Chat::where('is_read', '0')
-                            ->where('sender_id', $value->id)
-                            ->count();
-
-            // Set the number of unread messages and creation date of the last message
-            $value->chatcount = $chatcount != 0 ? $chatcount : '';
-            $value->createdDate = $chatrec ? $chatrec->created_at->diffForHumans() : '';
-
-            // Add the chat status if any
-            $value->chat_status = $value->chat_status;
-
-            // Push the user with chat details into the array
-            $userDetails[] = $value;
-        }
-
-        // Sort the users with unread messages at the top
-        usort($userDetails, function ($a, $b) {
-            return $b->chatcount <=> $a->chatcount;
-        });
-
-        // Sort users by their last chat timestamp, showing the latest chat on top
-        usort($userDetails, function ($a, $b) {
-            return strtotime($b->createdDate) <=> strtotime($a->createdDate);
-        });
-
-        // Get all chats (for example, this could be for displaying chat history)
-        $chats = Chat::with('user')->get();
-
-        // Return the view with sorted user list
-        return view('admin.chat.userlist', compact('chats', 'userDetails'));
     }
 
     // public function getuserlist(Request $request){

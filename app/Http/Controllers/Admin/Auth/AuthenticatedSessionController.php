@@ -11,6 +11,8 @@ use Illuminate\View\View;
 use Hash;
 use Session;
 use App\Models\User;
+use Carbon\Carbon;
+use DB;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -51,21 +53,44 @@ class AuthenticatedSessionController extends Controller
 
     public function store(Request $request)
     {
-       $validator =  $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) 
-        {
-            $user = Auth::user();
-            $user->chat_status = 'active';
-            $user->save();
+        try{
+            $validator =  $request->validate([
+                'email' => 'required',
+                'password' => 'required',
+            ]);
+            $credentials = $request->only('email', 'password');
+            if (Auth::attempt($credentials)) 
+            {
+                $user = Auth::user();
+                $user->chat_status = 'active';
+                $user->save();
 
-            return redirect()->intended('admin/dashboard')->with('success', 'Login Successfully.');
+                // Check if the user's attendance for today already exists
+                $today = Carbon::today()->toDateString(); // Get today's date
+                $attendanceExists = DB::table('attendances')
+                    ->where('employee_id', $user->id)
+                    ->whereDate('created_at', $today)
+                    ->exists();
+
+                if (!$attendanceExists) {
+                   
+                    DB::table('attendances')->insert([
+                        'employee_id' => $user->id,
+                        'employee_login_time' => Carbon::now()->format('H:i'),
+                        'message' => "Today Login",
+                        'office_logout_hrs'=>"19:00",
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+
+                }
+                return redirect()->intended('admin/dashboard')->with('success', 'Login Successfully.');
+            }
+            
+            return redirect()->back()->with('error', 'Email address or password is incorrect.');
+        }catch(Exception $e){
+            // dd($e);
         }
-        
-        return redirect()->back()->with('error', 'Email address or password is incorrect.');
     }
 
 

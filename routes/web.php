@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\HostCustomerController;
 use App\Http\Controllers\Admin\HostPaymentController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\AttendanceController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\ForgetPasswordController;
 use App\Http\Middleware\AuthCheck;
@@ -195,6 +196,15 @@ Route::middleware([AuthCheck::class])->group(function(){
         Route::post('/notifications/mark-read/{id?}', [NotificationController::class, 'markAsRead'])->name('markAsRead');
         Route::post('/notifications/delete/{id?}', [NotificationController::class, 'deleteNotification'])->name('deleteNotification');
     
+        // invoice route
+        Route::resource('attendances', AttendanceController::class);
+        Route::post('admin/attendances/attendance-ajax', [AttendanceController::class, 'attendanceAjax'])->name('attendanceAjax');
+        // Route::post('change-attendances-status', [AttendanceController::class, 'ChangeAttendanceStatus'])->name('ChangeAttendanceStatus');
+        // Route::post('admin/attendances/destory', [AttendanceController::class, 'attendancedestory'])->name('attendancedestory');
+        
+        Route::get('/attendancesshow/{employee_id}', [AttendanceController::class, 'attendancesshow'])->name('attendancesshow');
+        Route::post('admin/attendancesshow/attendanceshow-ajax', [AttendanceController::class, 'ShowattendanceAjax'])->name('ShowattendanceAjax');
+
     });
 });
 Route::get('/pathroute', function () {

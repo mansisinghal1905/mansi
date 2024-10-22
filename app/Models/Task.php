@@ -66,9 +66,6 @@ class Task extends Authenticatable
             });
         }
 
-        if (isset($request->status)) {
-            $query->where('status', $request->status);
-        }
 
         if (isset($request->order_column)) {
             $categories = $query->orderBy($columns[$request->order_column], $request->order_dir);

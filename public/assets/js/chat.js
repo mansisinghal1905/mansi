@@ -3,10 +3,8 @@ $(document).ready(function() {
     getuserlist();
 //  alert($("#receiver_id").val());
     if($("#receiver_id").val()==1){
-        
         // getshowmessage($("#receiver_id").val(),false);
     }
-
 
 $('.selectuser').on('click', function() {
     // alert('hi');
@@ -22,7 +20,6 @@ function showuser(id){
     // alert(id);
     $("#receiver_id").val(id);// console.log(id);
     getshowmessage(id,true);
-
 }
 setInterval(function() {
     getuserlist();
@@ -32,12 +29,10 @@ setInterval(function() {
 function getuserlist(){
    
     $.ajax({
-    
             url: 'http://localhost/officeproject/admin/chat/getuserlist', // Use the generated URL
             type: 'post',
             data:
                 {id: '0'}, 
-                
             dataType : "html",
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Include CSRF token
@@ -45,8 +40,6 @@ function getuserlist(){
             success: function(response) {
                 // $("#showMessages").empty();
                 $("#userlist").html(response);
-        
-                // Handle success
             },
             
             error: function(xhr, status, error) {
@@ -54,8 +47,6 @@ function getuserlist(){
                 // Handle error
             }
         });
-
-
 }
 
 function getshowmessage(id,is_read){
@@ -65,7 +56,6 @@ function getshowmessage(id,is_read){
         type: 'post',
         data:
             {id: id,is_read:is_read}, 
-            
         dataType : "html",
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Include CSRF token
@@ -73,8 +63,6 @@ function getshowmessage(id,is_read){
         success: function(response) {
             // $("#showMessages").empty();
             $("#showMessages").html(response);
-    
-            // Handle success
         },
         error: function(xhr, status, error) {
             // console.error('Error:', error);

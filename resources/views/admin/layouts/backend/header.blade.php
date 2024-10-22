@@ -223,10 +223,10 @@
                                 <i class="feather-dollar-sign"></i>
                                 <span>Billing Details</span>
                             </a> -->
-                            <a href="javascript:void(0);" class="dropdown-item">
+                            <!-- <a href="javascript:void(0);" class="dropdown-item">
                                 <i class="feather-bell"></i>
                                 <span>Notifications</span>
-                            </a>
+                            </a> -->
                             <!-- <a href="javascript:void(0);" class="dropdown-item">
                                 <i class="feather-settings"></i>
                                 <span>Account Settings</span>
@@ -461,9 +461,13 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(data) {
                 // Update the badge count with the fetched data
-            
+            // console.log(data);
+            if(data.status == true){
                 $('#notificationcount').text(data.unreadCount);
                 loadNotifications();
+            }else{
+                $('#notificationcount').text(data.unreadCount);
+            }
             },
            
         });

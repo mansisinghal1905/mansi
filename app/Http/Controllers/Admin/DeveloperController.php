@@ -31,6 +31,8 @@ class DeveloperController extends Controller
             "phone_number",
             "designation",
             "status",
+            "login_time",
+            "logout_time"
         ];
     }
 
@@ -75,6 +77,11 @@ class DeveloperController extends Controller
             $data['phone_number'] = $value->phone_number;
             $data['designation'] = $value->Designation->name;
             $data['avatar'] = ($value->avatar != null) ? '<img src="'. $value->avatar.'" height="40%"width="40%" />' : '-';
+            // $data['login_time'] = $value->login_time ? date('Y-m-d', strtotime($value->login_time)) : 'N/A';
+            $data['login_time'] = $value->login_time ?? 'N/A';
+            $data['logout_time'] = $value->logout_time ?? 'N/A';
+
+            // $data['logout_time'] = $value->logout_time ? date('Y-m-d', strtotime($value->logout_time)) : 'N/A';
 
            
             $status = "<div class='form-check form-switch form-switch-sm'><input class='form-check-input c-pointer developerStatusToggle' type='checkbox' id='formSwitchDropbox_{$value->id}' data-id='{$value->id}'" . ($value->status == 1 ? 'checked' : '') . "><label class='form-check-label fw-500 text-dark c-pointer' for='formSwitchDropbox_{$value->id}'>" . ($value->status == 1 ? 'Active' : 'Inactive') . "</label></div>";

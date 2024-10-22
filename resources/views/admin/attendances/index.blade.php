@@ -1,6 +1,9 @@
 
 @extends('admin.layouts.backend.app')
 
+@push('style')
+
+@Endpush
 @section('content')
 <main class="nxl-container">
         <div class="nxl-content">
@@ -8,11 +11,11 @@
             <div class="page-header">
                 <div class="page-header-left d-flex align-items-center">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Developers</h5>
+                        <h5 class="m-b-10">Attendance</h5>
                     </div>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.developers.index') }}">Home</a></li>
-                        <li class="breadcrumb-item">Developers</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.attendances.index') }}">Home</a></li>
+                        <li class="breadcrumb-item">Attendance</li>
                     </ul>
                 </div>
                 <div class="page-header-right ms-auto">
@@ -24,13 +27,12 @@
                             </a>
                         </div>
                         <div class="d-flex align-items-center gap-2 page-header-right-items-wrapper">
-                            
-                            
-                           
-                            <a href="{{ route('admin.developers.create') }}" class="btn btn-primary">
+                            @if(Auth::user()->role == 2)
+                            <a href="{{ route('admin.attendances.create') }}" class="btn btn-primary">
                                 <i class="feather-plus me-2"></i>
-                                <span>Create Developer</span>
+                                <span>Create Attendance</span>
                             </a>
+                            @endif
                         </div>
                     </div>
                     <div class="d-md-none d-flex align-items-center">
@@ -40,7 +42,7 @@
                     </div>
                 </div>
             </div>
-           
+            
             <!-- [ page-header ] end -->
             <!-- [ Main Content ] start -->
             <div class="main-content">
@@ -49,20 +51,16 @@
                         <div class="card stretch stretch-full">
                             <div class="card-body p-0">
                                 <div class="table-responsive">
-                                    <table class="table table-hover data-table1 table stripe hover nowrap" id="developerList">
+                                    <table class="table table-hover data-table1 table stripe hover nowrap" id="attendanceList">
                                         <thead>
                                             <tr>
-                                                <th class="wd-30">
-                                                S.No.
-                                                </th>
-                                                <th>Image</th>
-                                                <th>Developer</th>
-                                                <th>Email</th>
-                                                <th>Phone</th>
-                                                <th>Designation</th>
+                                                <th class="wd-30">S.No.</th>
+                                                <th>Employee</th>
                                                 <th>Login Time</th>
-                                                <th>Logout Time</th>
+                                                <th>Total Hours</th>
+                                                <th>Remaining Hours</th>
                                                 <th>Status</th>
+                                                <th>Date</th>
                                                 <th class="">Actions</th>
                                             </tr>
                                         </thead>
@@ -95,13 +93,6 @@
 @endsection
 
 @push('script')
-<!-- 
-<script src="{{ asset('public/assets/src/plugins/datatables/js/jquery.dataTables.min.js')}}"></script>
-	<script src="{{ asset('public/assets/src/plugins/datatables/js/dataTables.bootstrap4.min.js')}}"></script>
-	<script src="{{ asset('public/assets/src/plugins/datatables/js/dataTables.responsive.min.js')}}"></script>
-	<script src="{{ asset('public/assets/src/plugins/datatables/js/responsive.bootstrap4.min.js')}}"></script>
-	<script src="{{ asset('public/assets/vendors/scripts/datatable-setting.js')}}"></script> -->
-
 
 <script type="text/javascript">
 		$(function () {
@@ -115,25 +106,20 @@
 			// 	id = $(this).data("id");
 			// 	alert(id);
 			// });
-			var table = $('#developerList').DataTable({
+			var table = $('#attendanceList').DataTable({
 				processing: true,
 				serverSide: true,
 				"scrollY": "400px", // Set the height for the container
 				"scrollCollapse": true, // Allow the container to collapse when the content is smaller
-				"scrollX": true,
+				"scrollX": false,
 				pagingType: "simple_numbers", // Use simple pagination (Previous/Next)
 
 				ajax: {
-					url: "{{ route('admin.developerAjax') }}",
+					url: "{{ route('admin.attendanceAjax') }}",
 					type: "POST",
 					data: {
-						from_date: $('input[name=from_date]').val(),
-						end_date: $('input[name=end_date]').val(),
-						status: $('select[name=status]').val(),
-						search: $('input[name=name]').val(),
-						search: $('input[name=email]').val(),
-						search: $('input[name=phone_number').val(),
-
+                        status: $('input[name=status]').val(),
+						// search: $('input[name=name]').val(),
 					},
 					dataSrc: "data"
 				},
@@ -145,55 +131,28 @@
 				"aoColumns": [{
 					"data": "id"
 				},
-				{ "data": "avatar" },
-				{ "data": "name" },
-                { "data": "email" },
-                { "data": "phone_number" },
-                { "data": "designation" },
-				{ "data": "login_time" },
-				{ "data": "logout_time" },
-				{ "data": "status" },
+				{ "data": "employee_id" },
+                { "data": "employee_login_time" },
+                // { "data": "checkin_from_break" },
+                // { "data": "remending_hours" },
+                { "data": "total_hours" },
+                { "data": "remending_hours" },
+                { "data": "status" },
+                { "data": "created_at" },
 				{ "data": "view" },
 
 				],
                 columnDefs: [
-                    { "targets": [5], "orderable": false }, // Disable sorting on the "job_id" column
+                    { "targets": [1,2,3,4,5,6,7], "orderable": false }, // Disable sorting on the "job_id" column
                     { "targets": [], "orderable": false } // Disable sorting on the "job_id" column
                 ]
 			});
 
 			// for chnage status
-            $(document).on('change', '.developerStatusToggle', function () {
-                var id = $(this).attr("data-id");
-                var status = $(this).is(':checked') ? 1 : 0;
-
-                $.ajax({
-                    type: "POST",
-                    url: @json(route('admin.ChangeDeveloperStatus')),
-                    data: { id: id, status: status },
-                    dataType: "JSON",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function (response) {
-                        if (response.status) {
-                            toastr.success(response.message); // Show success toast
-                            table.ajax.reload(); // Reload the table to reflect the changes
-                        } else {
-                            toastr.error(response.message); // Show error toast
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        toastr.error("An error occurred while changing the status."); // Show generic error toast
-                        console.error(error);
-                    }
-                });
-            });
+           
 		});
 
-
-
-        function deleteDevelopers(element) {
+        function deleteCategory(element) {
             var url = element.getAttribute('data-url');
             var id = element.getAttribute('data-id');
             
@@ -219,7 +178,7 @@
                         success: function(response) {
                             Swal.fire(
                                 'Deleted!',
-                                'The Developer has been deleted.',
+                                'The Designation has been deleted.',
                                 'success'
                             );
                             
@@ -230,7 +189,7 @@
                         error: function(response) {
                             Swal.fire(
                                 'Failed!',
-                                'There was an error deleting the Developer.',
+                                'There was an error deleting the Designation.',
                                 'error'
                             );
                         }
@@ -239,7 +198,11 @@
             });
         }
 
+
+
+
 	</script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 @endpush

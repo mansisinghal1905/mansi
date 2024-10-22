@@ -118,7 +118,7 @@
 				serverSide: true,
 				"scrollY": "400px", // Set the height for the container
 				"scrollCollapse": true, // Allow the container to collapse when the content is smaller
-				"scrollX": false,
+				"scrollX": true,
 				pagingType: "simple_numbers", // Use simple pagination (Previous/Next)
 
 				ajax: {
